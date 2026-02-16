@@ -47,7 +47,7 @@ export default function TechStack({ itemVariants }) {
                     <span className='text-xs mb-3 text-gray-500 flex flex-warp'>- Frontend Skills -</span>
                     <div className="flex flex-wrap gap-2">
                         {feSkills.map((tech, i) => (
-                            <span key={tech} className="px-4 py-2 bg-white/5 rounded-xl text-sm border border-white/5 hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all cursor-default">
+                            <span key={tech} className="px-4 py-2 bg-white/5 rounded-xl text-xs border border-white/5 hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all cursor-default">
                                 {tech}
                             </span>
                         ))}
@@ -62,7 +62,7 @@ export default function TechStack({ itemVariants }) {
                     <span className='text-xs mb-3 text-gray-500 flex flex-warp'>- Backend Skills -</span>
                     <div className="flex flex-wrap gap-2">
                         {beSkills.map((tech, i) => (
-                            <span key={tech} className="px-4 py-2 bg-white/5 rounded-xl text-sm border border-white/5 hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all cursor-default">
+                            <span key={tech} className="px-4 py-2 bg-white/5 rounded-xl text-xs border border-white/5 hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all cursor-default">
                                 {tech}
                             </span>
                         ))}
@@ -77,7 +77,7 @@ export default function TechStack({ itemVariants }) {
                     <span className='text-xs mb-3 text-gray-500 flex flex-warp'>- Tools -</span>
                     <div className="flex flex-wrap gap-2">
                         {toolSkills.map((tech, i) => (
-                            <span key={tech} className="px-4 py-2 bg-white/5 rounded-xl text-sm border border-white/5 hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all cursor-default">
+                            <span key={tech} className="px-4 py-2 bg-white/5 rounded-xl text-xs border border-white/5 hover:border-emerald-500/50 hover:bg-emerald-500/5 transition-all cursor-default">
                                 {tech}
                             </span>
                         ))}
