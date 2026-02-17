@@ -22,7 +22,7 @@ export default function Projects({ itemVariants }) {
             tech: "PHP · Codeigniter · Bootstrap · CSS · Javascript · MySQL · SQL Server",
             color: "from-emerald-600 to-teal-400",
             link: "https://gitlab.com/septyan_ep/his-live.git",
-            desc: "HIS - Medical is a comprehensive web-based application designed to manage and streamline employee healthcare data and services within a company. It covers hospital information, medical ceiling management, inpatient and outpatient records, hospital billing, and detailed employee medical history. Built with PHP using the CodeIgniter framework and a Bootstrap front-end, the system is scalable, efficient, and user-friendly, providing a robust solution for managing corporate healthcare benefits."
+            desc: "HIS - Medical is a comprehensive web-based application designed to manage and streamline employee healthcare data and services within a company. It covers hospital information, medical ceiling management, inpatient and outpatient records, hospital billing, and detailed employee medical history. Providing a robust solution for managing corporate healthcare benefits."
         }
     ];
 
@@ -44,16 +44,28 @@ export default function Projects({ itemVariants }) {
                 >
                     <div className={`absolute inset-0 bg-linear-to-br ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`}></div>
                     <div className="relative p-8 h-full flex flex-col justify-between">
-                        <div className="flex justify-between items-start">
-                            <a href={project.link}
-                               className="p-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-500 transform -translate-y-2 group-hover:translate-y-0">
+                        <div className="flex justify-between items-start mb-6">
+                            <a
+                                href={project.link}
+                                className="
+                                        absolute bottom-5 right-5
+                                        p-3 bg-white/10 backdrop-blur-md 
+                                        rounded-2xl border border-white/10 
+                                        opacity-100 md:opacity-0 
+                                        md:group-hover:opacity-100 
+                                        transition-all duration-500 
+                                        transform translate-y-0 
+                                        md:-translate-y-2 md:group-hover:translate-y-0
+                                    "
+                            >
                                 <IoArrowRedoOutline size={20} />
                             </a>
-                            <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold">Featured Project</span>
+                            <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold">Active Development</span>
+                            <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold">Feb 2025</span>
                         </div>
 
                         <div>
-                            <h3 className="text-3xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">{project.title}</h3>
+                            <a href={project.link} className="text-3xl font-bold mb-2 group-hover:text-emerald-400 transition-colors">{project.title}</a>
                             <p className="text-gray-400 mb-4 text-sm leading-relaxed">{project.desc}</p>
                             <div className="flex gap-3">
                                 {project.tech.split(' · ').map(t => (

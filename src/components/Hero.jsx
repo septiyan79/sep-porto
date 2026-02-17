@@ -51,7 +51,7 @@ export default function Hero() {
                     className=" bg-white/5 border border-white/10 p-8 rounded-4xl flex flex-col justify-center italic text-md text-gray-400 leading-relaxed mb-2"
                 >
                     I don’t just build interfaces.<br />
-                    I build structured, scalable systems.
+                    <span className='text-emerald-500'>I build structured, scalable systems.</span>
                 </div>
             </div>
 
