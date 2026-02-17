@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedinIn, FaRegEnvelope } from 'react-icons/fa';
+import { FaGithub, FaLinkedinIn, FaRegEnvelope, FaWhatsapp } from 'react-icons/fa';
 import { FaLocationDot } from 'react-icons/fa6';
 
 export default function Hero() {
@@ -27,7 +27,7 @@ export default function Hero() {
                 <p className="text-gray-400 text-lg leading-relaxed w-full font-thin">
                     <span className='text-md font-semibold text-gray-300'>I am a Frontend Developer with hands-on experience building end-to-end web applications using React and Firebase.</span>
                     <br /><br />
-                    With more than 10 years of experience in business operations and compliance at PT DNP Indonesia, I developed a strong foundation in structured thinking, risk awareness, and process optimization.
+                    With more than 10 years of experience in business operations and compliance at manufacture, I developed a strong foundation in structured thinking, risk awareness, and process optimization.
                     <br /><br />
                     That background allows me to approach software development not only from a technical perspective, but also from a business and system design perspective.
 
@@ -60,8 +60,9 @@ export default function Hero() {
                     Let's Talk <FaRegEnvelope size={18} />
                 </button>
                 <div className="flex gap-2">
-                    <a href="#" className="p-3 border border-white/10 rounded-full hover:bg-white/10 hover:border-white/20 transition-all"><FaGithub size={22} /></a>
-                    <a href="#" className="p-3 border border-white/10 rounded-full hover:bg-white/10 hover:border-white/20 transition-all"><FaLinkedinIn size={22} /></a>
+                    <a href="https://github.com/septiyan79" className="p-3 border border-white/10 rounded-full hover:bg-white/10 hover:border-white/20 transition-all"><FaGithub size={22} /></a>
+                    <a href="https://www.linkedin.com/in/septiyan-eka-5b59a0257" className="p-3 border border-white/10 rounded-full hover:bg-white/10 hover:border-white/20 transition-all"><FaLinkedinIn size={22} /></a>
+                    <a href="https://wa.me/6281803986390" className="p-3 border border-white/10 rounded-full hover:bg-white/10 hover:border-white/20 transition-all"><FaWhatsapp size={22} /></a>
                 </div>
             </div>
         </motion.div>
