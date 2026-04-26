@@ -4,7 +4,7 @@ export default function ProfessionalProfile({ itemVariants }) {
 
     return (
         <>
-            <motion.div className="md:col-span-6 flex items-center mt-5">
+            <motion.div id="professional-profile" className="md:col-span-6 flex items-center mt-5">
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-white">
                     Professional Profile
                 </span>
@@ -93,10 +93,11 @@ export default function ProfessionalProfile({ itemVariants }) {
                 </div>
                 <div className="flex flex-col gap-4">
                     {[
-                        "Remote Frontend Developer roles",
-                        "Junior to Mid-level React positions",
+                        "Remote Fullstack Developer roles",
+                        "Junior to Mid-level React / Next.js positions",
                         "Startup or product-based environments",
-                        "Contract-to-hire opportunities"
+                        "Contract-to-hire opportunities",
+                        "Freelance web development projects"
                     ].map((item) => (
                         <div key={item} className="flex items-start gap-3">
                             <div className="w-2 h-2 mt-2 rounded-full bg-linear-to-r from-yellow-400 to-blue-500"></div>
@@ -107,7 +108,7 @@ export default function ProfessionalProfile({ itemVariants }) {
                     ))}
                 </div>
 
-                <small className='mt-3 text-gray-500'>I am eager to grow within a professional tech flow while continuously strengthening my frontend architecture and backend integration skills.</small>
+                <small className='mt-3 text-gray-500'>I am open to freelance engagements — whether short-term builds, ongoing collaboration, or consulting on system architecture. Let's build something together.</small>
             </motion.div>
         </>
     );

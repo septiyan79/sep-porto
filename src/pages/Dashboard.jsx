@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 import Background from '../components/Background';
@@ -7,8 +8,11 @@ import TechStack from '../components/TechStack';
 import Project from '../components/Projects';
 import ProfessionalProfile from '../components/ProfessionalProfile';
 import Footer from '../components/Footer';
+import ProjectModal from '../components/ProjectModal';
 
 const Dashboard = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -44,7 +48,7 @@ const Dashboard = () => {
         <TechStack itemVariants={itemVariants}/>
 
         {/* 3. Projects Section */}
-        <Project itemVariants={itemVariants}/>
+        <Project itemVariants={itemVariants} onSelect={setSelectedProject} />
 
         {/* 4. About Me Section */}
         <ProfessionalProfile itemVariants={itemVariants}/>
@@ -53,6 +57,10 @@ const Dashboard = () => {
         <Footer itemVariants={itemVariants}/>
 
       </motion.main>
+
+      {selectedProject && (
+        <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      )}
     </div >
   );
 };

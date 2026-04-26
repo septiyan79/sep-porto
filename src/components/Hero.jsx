@@ -6,6 +6,7 @@ import { FaLocationDot } from 'react-icons/fa6';
 export default function Hero() {
     return (
         <motion.div
+            id="hero"
             className="md:col-span-4 bg-white/5 border border-white/10 p-8 rounded-4xl backdrop-blur-xl flex flex-col justify-between hover:border-emerald-500/30 transition-colors duration-500 group"
         >
             <div>
@@ -19,18 +20,17 @@ export default function Hero() {
                 <h1 className="text-5xl md:text-6xl font-bold tracking-tighter mb-6 leading-none">
                     I'm <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-emerald-400 to-cyan-400">Septiyan E.P.</span>
                 </h1>
-                <div className="flex gap-3 mb-6">
-                    <span className="text-xs text-emerald-500 font-mono bg-white/5 px-2 py-1 rounded border border-white/5 tracking-widest">FRONTEND DEVELOPER</span>
-                    <span className="text-xs text-emerald-500 font-mono bg-white/5 px-2 py-1 rounded border border-white/5 tracking-widest">REACT & FIREBASE</span>
-                    <span className="text-xs text-emerald-500 font-mono bg-white/5 px-2 py-1 rounded border border-white/5 tracking-widest">BUSSINESS-ORIENTED SYSTEM THINKER</span>
+                <div className="flex flex-wrap gap-3 mb-6">
+                    <span className="text-xs text-emerald-500 font-mono bg-white/5 px-2 py-1 rounded border border-white/5 tracking-widest">FULLSTACK DEVELOPER</span>
+                    <span className="text-xs text-emerald-500 font-mono bg-white/5 px-2 py-1 rounded border border-white/5 tracking-widest">REACT · NEXT.JS · FIREBASE</span>
+                    <span className="text-xs text-emerald-500 font-mono bg-white/5 px-2 py-1 rounded border border-white/5 tracking-widest">BUSINESS-ORIENTED SYSTEM THINKER</span>
                 </div>
                 <p className="text-gray-400 text-lg leading-relaxed w-full font-thin">
-                    <span className='text-md font-semibold text-gray-300'>I am a Frontend Developer with hands-on experience building end-to-end web applications using React and Firebase.</span>
+                    <span className='text-md font-semibold text-gray-300'>Fullstack Web Developer with 5+ years of experience building business-oriented web applications and internal systems.</span>
                     <br /><br />
-                    With more than 10 years of experience in business operations and compliance at manufacture, I developed a strong foundation in structured thinking, risk awareness, and process optimization.
+                    Experienced in developing end-to-end solutions using React, Next.js, Firebase, and PHP-based backend systems (CodeIgniter) — including database design, API integration, and authentication workflows.
                     <br /><br />
-                    That background allows me to approach software development not only from a technical perspective, but also from a business and system design perspective.
-
+                    Proven track record delivering real-world applications such as inventory systems, internal operational tools, and transaction platforms, with a focus on scalable architecture, data management, and practical solutions for business processes.
                 </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
@@ -50,8 +50,8 @@ export default function Hero() {
                 <div
                     className=" bg-white/5 border border-white/10 p-8 rounded-4xl flex flex-col justify-center italic text-md text-gray-400 leading-relaxed mb-2"
                 >
-                    I don’t just build interfaces.<br />
-                    <span className='text-emerald-500'>I build structured, scalable systems.</span>
+                    I don't just write code.<br />
+                    <span className='text-emerald-500'>I build end-to-end, business-driven systems.</span>
                 </div>
             </div>
 

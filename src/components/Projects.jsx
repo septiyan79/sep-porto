@@ -1,81 +1,110 @@
 import { motion } from 'framer-motion';
 import { IoArrowRedoOutline, IoEye, IoLogoGithub, IoLogoGitlab } from 'react-icons/io5';
 
-export default function Projects({ itemVariants }) {
+export default function Projects({ itemVariants, onSelect }) {
     const projects = [
         {
+            title: "Wisel Portal",
+            position: "Fullstack Developer (Modern Web Stack)",
+            tech: "Next.js · PostgreSQL · NextAuth.js · TailwindCSS · Vercel",
+            color: "from-violet-600 to-indigo-400",
+            link: [],
+            desc: "Fullstack Next.js app with SSR, PostgreSQL, NextAuth.js authentication, and Vercel CI/CD deployment.",
+            detail: "A fullstack web application built with Next.js and PostgreSQL (Neon), implementing server-side rendering (SSR) to improve page load performance by ~30% and enhance SEO readiness. Features secure authentication with NextAuth.js, a structured relational database schema, and CI/CD deployment via Vercel reducing deployment time by ~50%.",
+            status: "Active Dev",
+            periode: "MAR 2026 - PRESENT",
+        },
+        {
             title: "Pixel Prigel",
-            position: "Frontend Developer",
-            tech: "React · Firebase · Firestore · TailwindCSS · API",
+            position: "Fullstack Developer (Serverless Architecture)",
+            tech: "React · Firebase · Firestore · TailwindCSS · Cloudinary",
             color: "from-lime-600 to-orange-400",
             link: [
                 { type: "github", url: "https://github.com/septiyan79/pixel-prigel" },
             ],
-            desc: "An active development project built with real product considerations, designed as a landing page and lightweight marketplace for digital (printable) sticker products.",
+            desc: "Serverless digital sticker marketplace built with React, Firebase, and Cloudinary for optimized image delivery.",
+            detail: "A scalable digital product platform built with React.js, Firebase, and Firestore, transforming a static landing concept into a fully functional marketplace for digital sticker products. Integrated Cloudinary for image optimization reducing load time by ~30%. Improved content management efficiency by up to 80% through serverless architecture.",
             status: "Active Dev",
             periode: "JAN 2026 - PRESENT",
         },
         {
             title: "LPE Hub",
-            position: "Frontend Developer",
-            tech: "React · Firebase · Firestore · TailwindCSS · API",
+            position: "Fullstack Developer (Serverless Architecture)",
+            tech: "React · Firebase · Firestore · TailwindCSS",
             color: "from-purple-600 to-pink-500",
             link: [
                 { type: "github", url: "https://github.com/septiyan79/lpe-hub.git" },
             ],
-            desc: "An internal web application designed to support employee daily activities, reporting, and administrative requests within a company.",
+            desc: "Internal tool digitizing workflows for activity planning, reporting, and employee administrative requests.",
+            detail: "An internal operational web application (License & Permit Expatriate Hub) digitizing department workflows for activity planning, reporting, and employee administrative requests. Improved task tracking efficiency by ~60% and reduced manual documentation workload by ~50% through structured Firestore data management.",
             status: "Active Dev",
             periode: "JAN 2026 - PRESENT",
         },
         {
             title: "Clemira Gold",
-            position: "Frontend Developer",
-            tech: "React · Firebase · Firestore · Bootstrap · API",
+            position: "Fullstack Developer (Serverless Architecture)",
+            tech: "React · Firebase · Firestore · Bootstrap",
             color: "from-cyan-600 to-rose-500",
             link: [],
-            desc: "A web application for managing gold products and daily gold prices, built with React.js and Firebase. Features real-time data updates, role-based access control (admin & user), and structured product and transaction management.",
+            desc: "Real-time gold inventory and transaction system with role-based access and structured Firestore data models.",
+            detail: "A fullstack real-time inventory and transaction management system for gold products, replacing manual tracking and reducing inventory discrepancies by ~45%. Features structured Firestore data models for products and transactions, role-based access control, and real-time synchronization improving operational visibility by ~40%.",
             status: "Active Dev",
-            periode: "OCT 2025 - PRESENT",
+            periode: "AUG 2025 - PRESENT",
+        },
+        {
+            title: "ERP Report Developer",
+            position: "Data / Reporting Developer",
+            tech: "Radius ERP · Crystal Reports · SQL Server · DBVisualizer",
+            color: "from-amber-600 to-orange-400",
+            link: [],
+            desc: "Business reports and dashboards within the Radius ERP using Crystal Reports and optimized SQL Server queries.",
+            detail: "Developed and maintained business reports within the Radius ERP system using Crystal Reports, supporting financial, operational, and management reporting needs. Designed and optimized SQL Server queries improving report generation efficiency by ~30% and enhancing data visibility for operational stakeholders.",
+            status: "Complete",
+            periode: "JAN 2023 - DEC 2023",
         },
         {
             title: "HIS (HRCA Information System)",
-            position: "Fullstack Developer (Monolithic App)",
-            tech: "PHP · Codeigniter · Bootstrap · CSS · Javascript · MySQL · SQL Server",
+            position: "Fullstack Web Developer (Monolithic App)",
+            tech: "PHP · CodeIgniter · Bootstrap · SQL Server",
             color: "from-emerald-600 to-teal-400",
             link: [
                 { type: "gitlab", url: "https://gitlab.com/septyan_ep/his-live.git" },
             ],
-            desc: "A comprehensive web-based application designed to manage and streamline employee healthcare data and services within a company.",
+            desc: "Internal HRCA system digitizing employee health-related administrative workflows with PHP, CodeIgniter, and SQL Server.",
+            detail: "A comprehensive internal HRCA Information System built with PHP (CodeIgniter) and SQL Server, digitizing administrative workflows and improving operational efficiency by ~50%. Implemented data management and reporting modules reducing manual record processing time by ~40% and optimizing database query performance by ~30%.",
             status: "Complete",
-            periode: "JAN 2023 - DEC 2024",
+            periode: "JAN 2021 - DEC 2023",
         },
         {
             title: "Kaizen Tournament Score System",
-            position: "Fullstack Developer (Monolithic App)",
-            tech: "PHP · Codeigniter · Bootstrap · CSS · Javascript · MySQL",
+            position: "Fullstack Web Developer (Monolithic App)",
+            tech: "PHP · CodeIgniter · Bootstrap · MySQL",
             color: "from-rose-600 to-emerald-400",
             link: [],
-            desc: "A tournament management and scoring system designed to automate match result recording, point accumulation, and real-time ranking calculations. The system helps organizers reduce manual errors, enhance transparency, and accelerate the overall competition result recap process.",
+            desc: "Tournament scoring system automating ranking calculations and reducing manual score errors by ~70%.",
+            detail: "A web-based tournament scoring system automating match result recording, ranking calculations, and score management. Implemented backend logic to automatically calculate rankings, reducing manual calculation errors by ~70% and cutting score processing time by ~60% compared to manual methods.",
             status: "Complete",
             periode: "SEP 2022 - DEC 2022",
         },
         {
-            title: "Kaizen Filling System",
-            position: "Fullstack Developer (Monolithic App)",
-            tech: "PHP · HTML · Bootstrap · CSS · Javascript · MySQL",
+            title: "Kaizen Filing System",
+            position: "Fullstack Web Developer (Monolithic App)",
+            tech: "PHP · HTML · Bootstrap · CSS · JavaScript · MySQL",
             color: "from-yellow-600 to-green-400",
             link: [],
-            desc: "A document storage management system designed to organize, archive, and track data in a structured and efficient manner. The system helps improve administrative organization, simplify document retrieval, and reduce the risk of data loss or duplication.",
+            desc: "Document filing system with search and categorization, improving internal document retrieval speed by ~50%.",
+            detail: "A web-based document filing system enabling digital storage, categorization, and retrieval of internal documents. Implemented search and filtering features improving document retrieval speed by ~50% and digitizing manual filing processes to reduce the risk of data loss or duplication.",
             status: "Complete",
             periode: "JAN 2020 - JUN 2020",
         },
         {
             title: "E-Learning for Elementary School",
-            position: "Fullstack Developer (Monolithic App)",
-            tech: "Telegram Bot · PHP · Codeigniter · Bootstrap · CSS · Javascript · MySQL",
+            position: "Fullstack Web Developer (Monolithic App)",
+            tech: "Telegram Bot · PHP · CodeIgniter · Bootstrap · MySQL",
             color: "from-blue-600 to-teal-400",
             link: [],
-            desc: "A Telegram Bot–based digital learning platform designed to support elementary school students in an interactive and easily accessible way. The system enables the distribution of learning materials, assignment management, and automated assessments directly through the Telegram application.",
+            desc: "Telegram Bot–based e-learning platform for elementary students with materials, assignments, and automated assessments.",
+            detail: "A Telegram Bot–based digital learning platform supporting elementary school students with course materials, assignment management, and automated assessments. Integrated Telegram Bot notifications improving teacher-student communication and enabling digital access to learning materials outside the classroom.",
             status: "Complete",
             periode: "OCT 2018 - DEC 2019",
         },
@@ -83,7 +112,7 @@ export default function Projects({ itemVariants }) {
 
     return (
         <>
-            <motion.div className="md:col-span-6 flex items-center mt-8">
+            <motion.div id="projects" className="md:col-span-6 flex items-center mt-8">
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-white">
                     Projects
                 </span>
@@ -122,20 +151,21 @@ export default function Projects({ itemVariants }) {
 
                                     </a>
                                 ))}
-                                <a
-                                    href="#"
+                                <button
+                                    onClick={() => onSelect(project)}
                                     className="
-                                        md:p-3 p-2 bg-white/10 backdrop-blur-md 
+                                        md:p-3 p-2 bg-white/10 backdrop-blur-md
                                         rounded-2xl border border-white/10 hover:border-emerald-500
-                                        opacity-100 md:opacity-0 
-                                        md:group-hover:opacity-100 
-                                        transition-all duration-500 
-                                        transform translate-y-0 
+                                        opacity-100 md:opacity-0
+                                        md:group-hover:opacity-100
+                                        transition-all duration-500
+                                        transform translate-y-0
                                         md:-translate-y-2 md:group-hover:translate-y-0
+                                        cursor-pointer
                                     "
                                 >
                                     <IoEye size={20} />
-                                </a>
+                                </button>
                             </div>
 
                         </div>
