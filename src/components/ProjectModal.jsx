@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { IoClose, IoLogoGithub, IoLogoGitlab, IoArrowRedoOutline } from 'react-icons/io5';
+import { IoClose, IoLogoGithub, IoLogoGitlab, IoOpenOutline } from 'react-icons/io5';
 import { FaWhatsapp } from 'react-icons/fa';
 
 export default function ProjectModal({ project, onClose }) {
@@ -89,7 +89,7 @@ export default function ProjectModal({ project, onClose }) {
                                 >
                                     {item.type === 'github' && <><IoLogoGithub size={16} /> GitHub</>}
                                     {item.type === 'gitlab' && <><IoLogoGitlab size={16} /> GitLab</>}
-                                    {item.type === 'web' && <><IoArrowRedoOutline size={16} /> Live Demo</>}
+                                    {item.type === 'web' && <><IoOpenOutline size={16} /> Live Demo</>}
                                 </a>
                             ))}
                             <a

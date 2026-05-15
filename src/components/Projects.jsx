@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { IoArrowRedoOutline, IoEye, IoLogoGithub, IoLogoGitlab } from 'react-icons/io5';
+import { IoOpenOutline, IoEye, IoLogoGithub, IoLogoGitlab } from 'react-icons/io5';
 
 export default function Projects({ itemVariants, onSelect }) {
     const projects = [
@@ -142,20 +142,22 @@ export default function Projects({ itemVariants, onSelect }) {
                                     <a
                                         key={item.type}
                                         href={item.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
                                         className="
-                                        md:p-3 p-2 bg-white/10 backdrop-blur-md 
+                                        md:p-3 p-2 bg-white/10 backdrop-blur-md
                                         rounded-2xl border border-white/10 hover:border-emerald-500
-                                        opacity-100 md:opacity-0 
-                                        md:group-hover:opacity-100 
-                                        transition-all duration-500 
-                                        transform translate-y-0 
+                                        opacity-100 md:opacity-0
+                                        md:group-hover:opacity-100
+                                        transition-all duration-500
+                                        transform translate-y-0
                                         md:-translate-y-2 md:group-hover:translate-y-0
                                     "
                                     >
                                         {item.type === "github" && <IoLogoGithub size={20} />}
                                         {item.type === "gitlab" && <IoLogoGitlab size={20} />}
-                                        {item.type === "web" && <IoArrowRedoOutline size={20} />}
-
+                                        {item.type === "web" && <IoOpenOutline size={20} />}
                                     </a>
                                 ))}
                                 <button
