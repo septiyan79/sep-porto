@@ -51,7 +51,7 @@ export default function Projects({ itemVariants, onSelect }) {
             color: "from-cyan-600 to-rose-500",
             link: [
                 { type: "github", url: "https://github.com/septiyan79/clemira-gold" },
-                { type: "web", url: "https://clemiragold-75f94.web.app/" },
+                { type: "web", url: "https://clemira-gold.vercel.app/" },
             ],
             desc: "Real-time gold inventory and transaction system with role-based access and structured Firestore data models.",
             detail: "A fullstack real-time inventory and transaction management system for gold products, replacing manual tracking and reducing inventory discrepancies by ~45%. Features structured Firestore data models for products and transactions, role-based access control, and real-time synchronization improving operational visibility by ~40%.",
