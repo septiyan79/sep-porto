@@ -1,56 +1,45 @@
-'use client';
+import { createClient } from '../lib/supabase/server';
+import DashboardClient from '../components/DashboardClient';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+export const revalidate = 3600;
 
-import Background from '../components/Background';
-import Sidebar from '../components/Sidebar';
-import Hero from '../components/Hero';
-import TechStack from '../components/TechStack';
-import Project from '../components/Projects';
-import ProfessionalProfile from '../components/ProfessionalProfile';
-import Footer from '../components/Footer';
-import ProjectModal from '../components/ProjectModal';
+export default async function Page() {
+  const supabase = await createClient();
 
-const Dashboard = () => {
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [
+    { data: projects },
+    { data: skillRows },
+    { data: profileRows },
+    { data: socialLinks },
+  ] = await Promise.all([
+    supabase.from('projects').select('*').eq('is_visible', true).order('display_order'),
+    supabase.from('skills').select('*').order('display_order'),
+    supabase.from('profile_content').select('key, value'),
+    supabase.from('social_links').select('*').eq('is_active', true).order('display_order'),
+  ]);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
+  const profile = Object.fromEntries((profileRows ?? []).map(r => [r.key, r.value]));
+
+  // Parse JSON array fields stored as text
+  ['what_i_bring', 'professional_strength', 'career_objective'].forEach(key => {
+    if (profile[key]) {
+      try { profile[key] = JSON.parse(profile[key]); } catch { profile[key] = []; }
     }
-  };
+  });
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 }
+  const skills = {
+    frontend:  skillRows?.filter(s => s.category === 'frontend').map(s => s.name)  ?? [],
+    backend:   skillRows?.filter(s => s.category === 'backend').map(s => s.name)   ?? [],
+    tools:     skillRows?.filter(s => s.category === 'tools').map(s => s.name)     ?? [],
+    practices: skillRows?.filter(s => s.category === 'practices').map(s => s.name) ?? [],
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white p-4 md:p-12 font-sans selection:bg-emerald-500/30">
-      <Background />
-      <Sidebar />
-
-      <motion.main
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-        className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-6 gap-4"
-      >
-        <Hero />
-        <TechStack itemVariants={itemVariants} />
-        <Project itemVariants={itemVariants} onSelect={setSelectedProject} />
-        <ProfessionalProfile itemVariants={itemVariants} />
-        <Footer itemVariants={itemVariants} />
-      </motion.main>
-
-      {selectedProject && (
-        <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-      )}
-    </div>
+    <DashboardClient
+      projects={projects ?? []}
+      skills={skills}
+      profile={profile}
+      socialLinks={socialLinks ?? []}
+    />
   );
-};
-
-export default Dashboard;
+}

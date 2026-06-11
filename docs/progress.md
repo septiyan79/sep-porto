@@ -2,7 +2,7 @@
 
 Tracking status pengerjaan berdasarkan [srs.md](srs.md).
 
-**Last updated:** Juni 2026 — Phase 2 selesai
+**Last updated:** Juni 2026 — Phase 4 selesai
 
 ---
 
@@ -12,8 +12,8 @@ Tracking status pengerjaan berdasarkan [srs.md](srs.md).
 |-------|--------|
 | Dokumentasi & SRS | ✅ Selesai |
 | Migrasi ke Next.js | ✅ Selesai |
-| Setup Supabase | ⬜ Belum dimulai |
-| Halaman `/` (portfolio dinamis) | ⬜ Belum dimulai |
+| Setup Supabase | 🔶 Sebagian (code selesai, perlu setup manual di Dashboard) |
+| Halaman `/` (portfolio dinamis) | ✅ Selesai |
 | Halaman `/catalog` | ⬜ Belum dimulai |
 | Halaman `/admin` + `/admin/login` | ⬜ Belum dimulai |
 
@@ -36,20 +36,29 @@ Tracking status pengerjaan berdasarkan [srs.md](srs.md).
 - [x] Dev server berjalan di `http://localhost:3000`
 
 ### Phase 3 — Setup Supabase
-- [ ] Buat project di Supabase
-- [ ] Buat 5 tabel: `projects`, `skills`, `profile_content`, `social_links`, `catalog_themes`
-- [ ] Aktifkan RLS + buat policy (public READ, authenticated CRUD)
-- [ ] Buat bucket Storage `catalog-previews` (public read)
-- [ ] Buat user admin di Supabase Auth
-- [ ] Seed data awal dari konten hardcoded yang ada sekarang
-- [ ] Tambahkan env vars ke `.env.local` dan Vercel Dashboard
+**Code (selesai):**
+- [x] Install `@supabase/supabase-js` + `@supabase/ssr`
+- [x] `supabase/schema.sql` — 5 tabel + RLS policies
+- [x] `supabase/seed.sql` — 8 projects, 36 skills, profile_content, social_links
+- [x] `lib/supabase/client.js` — browser client (`createBrowserClient`)
+- [x] `lib/supabase/server.js` — server client (`createServerClient` + cookies)
+- [x] `.env.local` template dengan placeholder
 
-### Phase 4 — Halaman `/` (Portfolio Dinamis)
-- [ ] Fetch `projects` dari Supabase (SSG)
-- [ ] Fetch `skills` dari Supabase (SSG)
-- [ ] Fetch `profile_content` dari Supabase (SSG)
-- [ ] Fetch `social_links` dari Supabase (SSG)
-- [ ] Pastikan tampilan visual tidak berubah dari versi sekarang
+**Manual (user di Supabase Dashboard):**
+- [ ] Buat project di Supabase → catat URL + anon key
+- [ ] SQL Editor → jalankan `supabase/schema.sql`
+- [ ] SQL Editor → jalankan `supabase/seed.sql`
+- [ ] Storage → buat bucket `catalog-previews` (Public)
+- [ ] Authentication → buat user admin (email + password, Auto Confirm)
+- [ ] Isi `.env.local` dengan URL + anon key yang sebenarnya
+- [ ] Tambahkan env vars ke Vercel Dashboard
+
+### Phase 4 — Halaman `/` (Portfolio Dinamis) ✅
+- [x] `app/page.jsx` diubah menjadi Server Component
+- [x] Buat `components/DashboardClient.jsx` (extract interactive parts)
+- [x] Fetch `projects`, `skills`, `profile_content`, `social_links` dari Supabase
+- [x] Semua komponen terima data via props (tidak ada lagi data hardcoded)
+- [x] Tampilan visual tidak berubah, data muncul dari Supabase
 
 ### Phase 5 — Halaman `/catalog`
 - [ ] Fetch `catalog_themes` dari Supabase (SSG)

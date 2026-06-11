@@ -6,16 +6,13 @@ Personal portfolio + catalog platform milik **Septiyan E.P.** (Fullstack Develop
 
 ## Status Migrasi
 
-> **Codebase saat ini masih dalam kondisi pre-migration** (React + Vite + hardcoded).  
-> Arsitektur target sudah disepakati — lihat `docs/srs.md` untuk detail lengkap.
-
-| Aspek | Saat Ini (Codebase) | Target (SRS) |
-|-------|---------------------|--------------|
-| Framework | ✅ Next.js 15 App Router | — |
-| Konten | Hardcoded di `.jsx` | Supabase (PostgreSQL) |
-| Halaman | `/`, `/catalog` (placeholder), `/admin` (placeholder) | Semua halaman aktif |
-| Admin | Placeholder, belum ada auth | Halaman `/admin` + Supabase Auth |
-| Rendering | `"use client"` (CSR) | SSG/SSR via Next.js |
+| Aspek | Status | Catatan |
+|-------|--------|---------|
+| Framework | ✅ Next.js 15 App Router | Migrasi dari Vite selesai |
+| Supabase (code) | ✅ Schema + seed + client | Perlu setup manual di Dashboard |
+| Konten | ⏳ Masih hardcoded | Akan diganti fetch Supabase di Phase 4 |
+| Halaman aktif | ⏳ `/` saja | `/catalog` + `/admin` masih placeholder |
+| Admin & Auth | ⏳ Belum | Phase 6 |
 
 ## Dokumentasi Lengkap
 
@@ -50,20 +47,28 @@ components/Background.jsx        ← blob gradient dekoratif
 components/Footer.jsx            ← footer
 next.config.mjs                  ← Next.js config (pakai .mjs bukan .js)
 postcss.config.mjs               ← Tailwind CSS 4 via postcss
+supabase/schema.sql              ← DDL 5 tabel + RLS (jalankan di Supabase Dashboard)
+supabase/seed.sql                ← data awal dari konten hardcoded
+lib/supabase/client.js           ← browser client (createBrowserClient)
+lib/supabase/server.js           ← server client (createServerClient + cookies)
+.env.local                       ← isi NEXT_PUBLIC_SUPABASE_URL + ANON_KEY
 ```
 
 ## Aturan Penting (Saat Ini)
 
-- **Semua konten hardcoded** — tidak ada API, CMS, atau database (pre-migration)
+- **Konten masih hardcoded** — belum fetch dari Supabase (Phase 4 nanti)
 - **Tidak ada TypeScript** — semua file `.jsx`, meskipun types sudah terpasang
-- **Styling hanya Tailwind** — `App.css` kosong, jangan tambah CSS manual
+- **Styling hanya Tailwind** — jangan tambah CSS manual
 - **Animasi via Framer Motion** — komponen baru di grid wajib terima prop `itemVariants`
-- **State management minimal** — hanya `useState` di `Dashboard.jsx` untuk modal
+- **`"use client"`** — wajib di semua komponen yang pakai hooks atau Framer Motion
 - **`react-icon` v1.0.0 jangan dipakai** — gunakan `react-icons` (plural)
+- **`.env.local`** — isi dengan URL + anon key dari Supabase Dashboard sebelum Phase 4
 
-## Env Vars yang Dibutuhkan Setelah Migrasi
+## Env Vars
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=xxxx
 ```
+
+> Tambahkan juga ke Vercel Dashboard → Project Settings → Environment Variables.
