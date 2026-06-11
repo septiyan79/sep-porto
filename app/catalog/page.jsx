@@ -1,11 +1,25 @@
-export default function CatalogPage() {
+import { createClient } from '../../lib/supabase/server';
+import Background from '../../components/Background';
+import Sidebar from '../../components/Sidebar';
+import CatalogClient from '../../components/CatalogClient';
+
+export const revalidate = 3600;
+
+export default async function CatalogPage() {
+  const supabase = await createClient();
+
+  const [{ data: themes }, { data: socialLinks }] = await Promise.all([
+    supabase.from('catalog_themes').select('*').eq('is_active', true).order('display_order'),
+    supabase.from('social_links').select('*').eq('is_active', true),
+  ]);
+
+  const waLink = socialLinks?.find(s => s.icon_key === 'FaWhatsapp')?.url ?? '#';
+
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
-      <div className="text-center">
-        <p className="text-xs font-mono text-emerald-500 tracking-widest uppercase mb-4">Coming Soon</p>
-        <h1 className="text-4xl font-bold tracking-tighter">Catalog</h1>
-        <p className="text-gray-500 mt-3 text-sm">Tema web company profile untuk UMKM.</p>
-      </div>
-    </div>
+    <>
+      <Background />
+      <Sidebar />
+      <CatalogClient themes={themes ?? []} waLink={waLink} />
+    </>
   );
 }

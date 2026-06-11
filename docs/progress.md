@@ -2,7 +2,7 @@
 
 Tracking status pengerjaan berdasarkan [srs.md](srs.md).
 
-**Last updated:** Juni 2026 — Phase 4 selesai
+**Last updated:** Juni 2026 — Phase 5 selesai
 
 ---
 
@@ -14,7 +14,7 @@ Tracking status pengerjaan berdasarkan [srs.md](srs.md).
 | Migrasi ke Next.js | ✅ Selesai |
 | Setup Supabase | 🔶 Sebagian (code selesai, perlu setup manual di Dashboard) |
 | Halaman `/` (portfolio dinamis) | ✅ Selesai |
-| Halaman `/catalog` | ⬜ Belum dimulai |
+| Halaman `/catalog` | ✅ Selesai |
 | Halaman `/admin` + `/admin/login` | ⬜ Belum dimulai |
 
 ---
@@ -60,10 +60,11 @@ Tracking status pengerjaan berdasarkan [srs.md](srs.md).
 - [x] Semua komponen terima data via props (tidak ada lagi data hardcoded)
 - [x] Tampilan visual tidak berubah, data muncul dari Supabase
 
-### Phase 5 — Halaman `/catalog`
-- [ ] Fetch `catalog_themes` dari Supabase (SSG)
-- [ ] Layout kartu tema (preview image, nama, fitur, tombol demo + WA)
-- [ ] Responsive design (konsisten dengan design system)
+### Phase 5 — Halaman `/catalog` ✅
+- [x] `app/catalog/page.jsx` jadi Server Component, fetch `catalog_themes` + `social_links`
+- [x] Buat `components/CatalogClient.jsx` (layout + motion, empty state)
+- [x] Buat `components/CatalogCard.jsx` (preview image, features, tombol Demo + WA)
+- [x] Sidebar diupdate: tambah link `/catalog`, scroll links hanya muncul di halaman `/`
 
 ### Phase 6 — Halaman `/admin`
 - [ ] Halaman `/admin/login` (form Supabase Auth)

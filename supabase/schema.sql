@@ -70,6 +70,7 @@ CREATE TABLE catalog_themes (
   preview_image_url varchar,
   features          text[] DEFAULT '{}',
   demo_url          varchar,
+  category          varchar,
   is_active         boolean DEFAULT true,
   display_order     integer DEFAULT 0,
   created_at        timestamptz DEFAULT now()
