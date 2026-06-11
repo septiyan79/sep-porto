@@ -1,101 +1,143 @@
 # Arsitektur Aplikasi
 
-> **Catatan:** Bagian ini menggambarkan kondisi codebase saat ini (React + Vite). Untuk arsitektur target setelah migrasi, lihat section [Target Architecture](#target-architecture-post-migration) di bawah dan [docs/srs.md](srs.md).
+> Dokumen ini mencerminkan kondisi **saat ini** (Next.js 15 + Supabase, post-migration).
 
 ---
 
-## Kondisi Saat Ini (Pre-migration)
-
-### Struktur Folder
+## Struktur Folder
 
 ```
 sep-porto/
-├── src/
-│   ├── components/              # Komponen UI yang dapat digunakan ulang
-│   │   ├── Background.jsx       # Background blur gradient (dekoratif)
-│   │   ├── Footer.jsx           # Footer halaman
-│   │   ├── Hero.jsx             # Kartu profil utama
-│   │   ├── ProfessionalProfile.jsx  # 3 kartu about/profile
-│   │   ├── ProjectModal.jsx     # Modal detail proyek
-│   │   ├── Projects.jsx         # Daftar kartu proyek + data proyek
-│   │   ├── Sidebar.jsx          # Navigasi sidebar fixed (desktop only)
-│   │   └── TechStack.jsx        # Tampilan skill teknis + data skill
-│   ├── pages/
-│   │   └── Dashboard.jsx        # Satu-satunya halaman — layout utama
-│   ├── assets/
-│   │   └── react.svg            # Asset bawaan Vite (tidak digunakan aktif)
-│   ├── App.jsx                  # Konfigurasi routing React Router
-│   ├── App.css                  # Kosong (tidak digunakan)
-│   ├── main.jsx                 # Entry point React (ReactDOM.createRoot)
-│   └── index.css                # Hanya: @import "tailwindcss"
-├── public/
-│   └── S.png                    # Favicon (102KB)
-├── .github/workflows/           # Kosong (belum ada CI/CD workflow)
-├── .firebase/                   # Cache Firebase lama (legacy, bisa diabaikan)
-├── index.html                   # HTML entry point
-├── vite.config.js               # Konfigurasi Vite + plugin
-├── vercel.json                  # Konfigurasi deployment Vercel
-├── eslint.config.js             # ESLint 9 flat config
-├── package.json                 # Dependensi dan scripts
-└── docs/                        # Dokumentasi project ini
+├── app/
+│   ├── page.jsx               ← Server Component — fetch Supabase, render DashboardClient
+│   ├── catalog/
+│   │   └── page.jsx           ← Server Component — fetch catalog_themes, render CatalogClient
+│   ├── admin/
+│   │   ├── page.jsx           ← Placeholder (Phase 6)
+│   │   └── login/
+│   │       └── page.jsx       ← Placeholder (Phase 6)
+│   ├── layout.jsx             ← Root layout (metadata, globals.css)
+│   └── globals.css            ← @import "tailwindcss"
+├── components/
+│   ├── DashboardClient.jsx    ← "use client" — layout /, state modal, motion
+│   ├── CatalogClient.jsx      ← "use client" — layout /catalog, filter category
+│   ├── CatalogCard.jsx        ← "use client" — card tiap tema
+│   ├── Hero.jsx               ← "use client" — kartu profil utama
+│   ├── TechStack.jsx          ← "use client" — skill badges per kategori
+│   ├── Projects.jsx           ← "use client" — daftar kartu proyek
+│   ├── ProfessionalProfile.jsx ← "use client" — 3 kartu about
+│   ├── ProjectModal.jsx       ← "use client" — modal detail proyek
+│   ├── Sidebar.jsx            ← "use client" — navigasi fixed desktop
+│   ├── Background.jsx         ← Server Component — blob gradient dekoratif
+│   └── Footer.jsx             ← "use client" — footer
+├── lib/
+│   └── supabase/
+│       ├── client.js          ← createBrowserClient (untuk Client Components)
+│       └── server.js          ← createServerClient + cookies (untuk Server Components)
+├── supabase/
+│   ├── schema.sql             ← DDL 5 tabel + RLS (sudah dijalankan)
+│   └── seed.sql               ← Data awal dari konten hardcoded (sudah dijalankan)
+├── docs/                      ← Dokumentasi project
+├── next.config.mjs            ← Next.js config (ESM, pakai .mjs)
+├── postcss.config.mjs         ← Tailwind CSS 4 via @tailwindcss/postcss
+├── eslint.config.js           ← ESLint 9 flat config
+└── .env.local                 ← Env vars Supabase (tidak di-commit)
 ```
+
+---
 
 ## Hierarki Komponen
 
+### Halaman `/`
+
 ```
-App.jsx (Router)
-└── Dashboard.jsx (Page — satu-satunya halaman)
-    ├── Background.jsx          (fixed, -z-10)
-    ├── Sidebar.jsx             (fixed, z-50, hidden di mobile)
-    ├── motion.main             (grid layout dengan Framer Motion)
-    │   ├── Hero.jsx            (md:col-span-4)
-    │   ├── TechStack.jsx       (md:col-span-2)
-    │   ├── Projects.jsx        (md:col-span-6 per kartu)
-    │   ├── ProfessionalProfile.jsx  (md:col-span-2 per kartu, 3 kartu)
-    │   └── Footer.jsx          (md:col-span-6)
-    └── ProjectModal.jsx        (conditional render, fixed overlay z-50)
+app/page.jsx (Server Component)
+│   fetch: projects, skills, profile_content, social_links
+│
+└── DashboardClient (Client Component)
+    ├── Background
+    ├── Sidebar
+    ├── motion.main (grid 6 kolom)
+    │   ├── Hero               props: profile, socialLinks
+    │   ├── TechStack          props: itemVariants, skills
+    │   ├── Projects           props: itemVariants, onSelect, projects
+    │   ├── ProfessionalProfile props: itemVariants, profile
+    │   └── Footer             props: itemVariants
+    └── ProjectModal           (conditional — muncul saat selectedProject !== null)
 ```
+
+### Halaman `/catalog`
+
+```
+app/catalog/page.jsx (Server Component)
+│   fetch: catalog_themes, social_links
+│
+└── Background
+└── Sidebar
+└── CatalogClient (Client Component)
+    │   state: activeCategory
+    └── CatalogCard[]          props: theme, waLink, itemVariants
+```
+
+---
+
+## Data Flow
+
+### Halaman `/`
+
+```
+Supabase DB
+    │
+    ├── projects        ──► app/page.jsx ──► DashboardClient ──► Projects.jsx
+    ├── skills          ──► app/page.jsx ──► DashboardClient ──► TechStack.jsx
+    ├── profile_content ──► app/page.jsx ──► DashboardClient ──► Hero.jsx
+    │                                                          └► ProfessionalProfile.jsx
+    └── social_links    ──► app/page.jsx ──► DashboardClient ──► Hero.jsx
+```
+
+### Halaman `/catalog`
+
+```
+Supabase DB
+    │
+    ├── catalog_themes ──► app/catalog/page.jsx ──► CatalogClient ──► CatalogCard[]
+    └── social_links   ──► app/catalog/page.jsx ──► CatalogClient (waLink)
+                                                              └──► CatalogCard (waLink)
+```
+
+---
+
+## Supabase — 5 Tabel
+
+| Tabel | Digunakan di | Kolom penting |
+|-------|-------------|---------------|
+| `projects` | `/` — Projects section | title, description, tech, color, links (jsonb), status, periode, is_visible, display_order |
+| `skills` | `/` — TechStack section | name, category (frontend\|backend\|tools\|practices), display_order |
+| `profile_content` | `/` — Hero + ProfessionalProfile | key (unique), value |
+| `social_links` | `/` — Hero + `/catalog` — WA button | platform, url, icon_key, is_active |
+| `catalog_themes` | `/catalog` | name, preview_image_url, features (text[]), demo_url, category, is_active, display_order |
+
+RLS: public SELECT untuk semua tabel, authenticated ALL untuk semua tabel.
+
+---
 
 ## State Management
 
-Project ini menggunakan **React local state only** — tidak ada Redux, Zustand, atau Context API.
+Hanya React local state — tidak ada Redux, Zustand, atau Context API.
 
-Satu-satunya state yang ada:
+| Komponen | State | Kegunaan |
+|----------|-------|----------|
+| `DashboardClient` | `selectedProject` (object\|null) | Buka/tutup ProjectModal |
+| `CatalogClient` | `activeCategory` (string) | Filter tampilan kartu per kategori |
 
-```jsx
-// src/pages/Dashboard.jsx
-const [selectedProject, setSelectedProject] = useState(null);
-```
+---
 
-**Alur state untuk ProjectModal:**
-1. User klik tombol "View" di dalam `Projects.jsx` → callback `onSelect(project)` dipanggil
-2. `Dashboard.jsx` menerima via prop `onSelect={setSelectedProject}` → state ter-update
-3. `selectedProject !== null` → `ProjectModal` dirender dengan `project={selectedProject}`
-4. User tutup modal → `onClose={() => setSelectedProject(null)}` → state kembali null
-
-## Routing
-
-Menggunakan **React Router DOM v7** dengan konfigurasi minimal:
-
-```jsx
-// src/App.jsx
-<Routes>
-  <Route path="/" element={<Dashboard />} />
-</Routes>
-```
-
-Hanya satu route. Semua konten ada di halaman tunggal (`/`). File `vercel.json` mengkonfigurasi rewrite semua path ke `index.html` untuk mendukung SPA routing.
-
-## Layout Grid
-
-Dashboard menggunakan CSS Grid Tailwind:
+## Layout Grid (Halaman `/`)
 
 ```
 Mobile:  1 kolom  (grid-cols-1)
 Desktop: 6 kolom  (md:grid-cols-6)
 ```
-
-Distribusi grid per komponen:
 
 | Komponen | Desktop | Mobile |
 |----------|---------|--------|
@@ -105,92 +147,13 @@ Distribusi grid per komponen:
 | ProfessionalProfile (tiap kartu) | `md:col-span-2` | full width |
 | Footer | `md:col-span-6` | full width |
 
-## Data Flow Diagram
-
-```
-Dashboard.jsx
-    │
-    ├── [state] selectedProject ────────────────────► ProjectModal
-    │                                                  (project, onClose)
-    │
-    └── Projects.jsx
-            │  (onSelect callback)
-            └── [user click] ──► setSelectedProject(project)
-```
-
-## Pola Animasi (Framer Motion)
-
-Animasi dikelola di `Dashboard.jsx` dan diteruskan ke child via prop `itemVariants`:
-
-```jsx
-// containerVariants — di Dashboard.jsx, untuk motion.main
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
-};
-
-// itemVariants — diteruskan ke TechStack, Projects, ProfessionalProfile, Footer
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: { y: 0, opacity: 1 }
-};
-```
-
-`Hero.jsx` tidak menerima `itemVariants` — animasinya mandiri dari `motion.div` langsung.
-
 ---
 
-## Target Architecture (Post-migration)
+## Rendering Strategy
 
-> Status: **Disepakati, belum diimplementasikan.** Detail lengkap di [docs/srs.md](srs.md).
-
-### Framework: Next.js App Router
-
-```
-sep-porto/ (after migration)
-├── app/
-│   ├── page.jsx               ← Halaman / (portfolio)
-│   ├── catalog/
-│   │   └── page.jsx           ← Halaman /catalog
-│   ├── admin/
-│   │   ├── page.jsx           ← Halaman /admin (dashboard, protected)
-│   │   └── login/
-│   │       └── page.jsx       ← Halaman /admin/login
-│   └── layout.jsx             ← Root layout
-├── components/                ← Komponen yang dimigrasi dari src/components/
-├── lib/
-│   └── supabase.js            ← Supabase client instance
-├── middleware.js              ← Proteksi route /admin
-└── ...
-```
-
-### Routing
-
-| Route | Fungsi | Rendering |
-|-------|--------|-----------|
-| `/` | Portfolio | SSG + revalidate |
-| `/catalog` | Katalog tema UMKM | SSG + revalidate |
-| `/admin` | Dashboard admin (protected) | CSR |
-| `/admin/login` | Login admin | CSR |
-
-### Supabase Integration
-
-5 tabel utama:
-
-| Tabel | Digunakan di |
-|-------|-------------|
-| `projects` | Halaman `/` (Projects section) |
-| `skills` | Halaman `/` (TechStack section) |
-| `profile_content` | Halaman `/` (Hero, ProfessionalProfile) |
-| `social_links` | Halaman `/` (Hero) |
-| `catalog_themes` | Halaman `/catalog` |
-
-**Data fetching pattern:**
-- Halaman SSG: `fetch` di server component (Next.js App Router)
-- Halaman admin: Supabase JS client di client component dengan auth session
-
-### Autentikasi Admin
-
-- Supabase Auth (email/password)
-- Middleware Next.js mengecek session → redirect `/admin/login` jika tidak ada
-- RLS aktif: public READ, authenticated CRUD
+| Route | Strategy | Catatan |
+|-------|----------|---------|
+| `/` | Dynamic (server-rendered) | `export const revalidate = 3600` |
+| `/catalog` | Dynamic (server-rendered) | `export const revalidate = 3600` |
+| `/admin` | Placeholder static | Phase 6 |
+| `/admin/login` | Placeholder static | Phase 6 |

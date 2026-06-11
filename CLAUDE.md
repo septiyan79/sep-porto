@@ -9,10 +9,10 @@ Personal portfolio + catalog platform milik **Septiyan E.P.** (Fullstack Develop
 | Aspek | Status | Catatan |
 |-------|--------|---------|
 | Framework | ✅ Next.js 15 App Router | Migrasi dari Vite selesai |
-| Supabase (code) | ✅ Schema + seed + client | Perlu setup manual di Dashboard |
-| Konten | ⏳ Masih hardcoded | Akan diganti fetch Supabase di Phase 4 |
-| Halaman aktif | ⏳ `/` saja | `/catalog` + `/admin` masih placeholder |
-| Admin & Auth | ⏳ Belum | Phase 6 |
+| Supabase | ✅ Live | Schema, seed, client sudah jalan |
+| Halaman `/` | ✅ Dinamis | Fetch dari Supabase, tidak ada hardcode |
+| Halaman `/catalog` | ✅ Live | Fetch catalog_themes + filter category |
+| Admin & Auth | ⏳ Belum | Phase 6 — next task |
 
 ## Dokumentasi Lengkap
 
@@ -31,38 +31,42 @@ Personal portfolio + catalog platform milik **Septiyan E.P.** (Fullstack Develop
 ## Quick Reference — Kondisi Saat Ini
 
 ```
-app/page.jsx                     ← halaman /, state modal ada di sini
-app/catalog/page.jsx             ← placeholder /catalog
-app/admin/page.jsx               ← placeholder /admin
-app/admin/login/page.jsx         ← placeholder /admin/login
+app/page.jsx                     ← Server Component, fetch semua data dari Supabase
+app/catalog/page.jsx             ← Server Component, fetch catalog_themes
+app/admin/page.jsx               ← placeholder /admin (Phase 6)
+app/admin/login/page.jsx         ← placeholder /admin/login (Phase 6)
 app/layout.jsx                   ← root layout (metadata, globals.css)
 app/globals.css                  ← @import "tailwindcss"
-components/Projects.jsx          ← data proyek hardcoded di sini
-components/TechStack.jsx         ← data skill hardcoded di sini
-components/Hero.jsx              ← bio, social links
-components/ProfessionalProfile.jsx  ← about me (3 kartu)
+components/DashboardClient.jsx   ← "use client" — layout /, state modal, motion
+components/CatalogClient.jsx     ← "use client" — layout /catalog, filter category
+components/CatalogCard.jsx       ← "use client" — card tiap tema di /catalog
+components/Hero.jsx              ← terima props: profile, socialLinks
+components/TechStack.jsx         ← terima props: skills {frontend,backend,tools,practices}
+components/Projects.jsx          ← terima props: projects (array dari Supabase)
+components/ProfessionalProfile.jsx  ← terima props: profile
 components/ProjectModal.jsx      ← modal detail proyek
-components/Sidebar.jsx           ← navigasi fixed desktop
-components/Background.jsx        ← blob gradient dekoratif
+components/Sidebar.jsx           ← navigasi fixed; scroll links hanya di /
+components/Background.jsx        ← blob gradient dekoratif (Server Component)
 components/Footer.jsx            ← footer
-next.config.mjs                  ← Next.js config (pakai .mjs bukan .js)
-postcss.config.mjs               ← Tailwind CSS 4 via postcss
-supabase/schema.sql              ← DDL 5 tabel + RLS (jalankan di Supabase Dashboard)
-supabase/seed.sql                ← data awal dari konten hardcoded
 lib/supabase/client.js           ← browser client (createBrowserClient)
 lib/supabase/server.js           ← server client (createServerClient + cookies)
-.env.local                       ← isi NEXT_PUBLIC_SUPABASE_URL + ANON_KEY
+supabase/schema.sql              ← DDL 5 tabel + RLS (sudah dijalankan)
+supabase/seed.sql                ← seed data awal (sudah dijalankan)
+next.config.mjs                  ← Next.js config (pakai .mjs bukan .js)
+postcss.config.mjs               ← Tailwind CSS 4 via postcss
+.env.local                       ← NEXT_PUBLIC_SUPABASE_URL + ANON_KEY (sudah diisi)
 ```
 
 ## Aturan Penting (Saat Ini)
 
-- **Konten masih hardcoded** — belum fetch dari Supabase (Phase 4 nanti)
 - **Tidak ada TypeScript** — semua file `.jsx`, meskipun types sudah terpasang
 - **Styling hanya Tailwind** — jangan tambah CSS manual
 - **Animasi via Framer Motion** — komponen baru di grid wajib terima prop `itemVariants`
 - **`"use client"`** — wajib di semua komponen yang pakai hooks atau Framer Motion
 - **`react-icon` v1.0.0 jangan dipakai** — gunakan `react-icons` (plural)
-- **`.env.local`** — isi dengan URL + anon key dari Supabase Dashboard sebelum Phase 4
+- **Data fetch di Server Component** — `app/page.jsx` dan `app/catalog/page.jsx` fetch data, lalu pass sebagai props ke Client Component
+- **catalog_themes.category** — varchar bebas (misal: "Toko Sepatu", "Wedding Organizer", "Online Shop"). Filter muncul otomatis dari data yang ada
+- **Next task: Phase 6** — `/admin/login` + middleware + CRUD dashboard
 
 ## Env Vars
 

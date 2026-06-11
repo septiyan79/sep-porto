@@ -45,13 +45,13 @@ Tracking status pengerjaan berdasarkan [srs.md](srs.md).
 - [x] `.env.local` template dengan placeholder
 
 **Manual (user di Supabase Dashboard):**
-- [ ] Buat project di Supabase → catat URL + anon key
-- [ ] SQL Editor → jalankan `supabase/schema.sql`
-- [ ] SQL Editor → jalankan `supabase/seed.sql`
-- [ ] Storage → buat bucket `catalog-previews` (Public)
-- [ ] Authentication → buat user admin (email + password, Auto Confirm)
-- [ ] Isi `.env.local` dengan URL + anon key yang sebenarnya
-- [ ] Tambahkan env vars ke Vercel Dashboard
+- [x] Buat project di Supabase → catat URL + anon key
+- [x] SQL Editor → jalankan `supabase/schema.sql`
+- [x] SQL Editor → jalankan `supabase/seed.sql`
+- [x] Isi `.env.local` dengan URL + anon key yang sebenarnya
+- [ ] Storage → buat bucket `catalog-previews` (Public) — diperlukan saat upload gambar di Phase 6
+- [ ] Authentication → buat user admin (email + password, Auto Confirm) — diperlukan di Phase 6
+- [ ] Tambahkan env vars ke Vercel Dashboard — diperlukan saat deploy
 
 ### Phase 4 — Halaman `/` (Portfolio Dinamis) ✅
 - [x] `app/page.jsx` diubah menjadi Server Component
