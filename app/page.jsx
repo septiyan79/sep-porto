@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
@@ -28,10 +30,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white p-4 md:p-12 font-sans selection:bg-emerald-500/30">
-      {/* Ambient Background */}
       <Background />
-
-      {/* Social Links Sidebars (Fixed) */}
       <Sidebar />
 
       <motion.main
@@ -40,28 +39,17 @@ const Dashboard = () => {
         variants={containerVariants}
         className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-6 gap-4"
       >
-
-        {/* 1. Profile Card (Hero) */}
         <Hero />
-
-        {/* 2. Tech Stack (Animated Grid) */}
-        <TechStack itemVariants={itemVariants}/>
-
-        {/* 3. Projects Section */}
+        <TechStack itemVariants={itemVariants} />
         <Project itemVariants={itemVariants} onSelect={setSelectedProject} />
-
-        {/* 4. About Me Section */}
-        <ProfessionalProfile itemVariants={itemVariants}/>
-
-        {/* Footer */}
-        <Footer itemVariants={itemVariants}/>
-
+        <ProfessionalProfile itemVariants={itemVariants} />
+        <Footer itemVariants={itemVariants} />
       </motion.main>
 
       {selectedProject && (
         <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
       )}
-    </div >
+    </div>
   );
 };
 

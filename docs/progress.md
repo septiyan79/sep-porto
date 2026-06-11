@@ -2,7 +2,7 @@
 
 Tracking status pengerjaan berdasarkan [srs.md](srs.md).
 
-**Last updated:** Juni 2026
+**Last updated:** Juni 2026 — Phase 2 selesai
 
 ---
 
@@ -11,7 +11,7 @@ Tracking status pengerjaan berdasarkan [srs.md](srs.md).
 | Phase | Status |
 |-------|--------|
 | Dokumentasi & SRS | ✅ Selesai |
-| Migrasi ke Next.js | ⬜ Belum dimulai |
+| Migrasi ke Next.js | ✅ Selesai |
 | Setup Supabase | ⬜ Belum dimulai |
 | Halaman `/` (portfolio dinamis) | ⬜ Belum dimulai |
 | Halaman `/catalog` | ⬜ Belum dimulai |
@@ -26,13 +26,14 @@ Tracking status pengerjaan berdasarkan [srs.md](srs.md).
 - [x] Diskusi & finalisasi SRS
 - [x] `docs/srs.md` dibuat
 
-### Phase 2 — Migrasi ke Next.js
-- [ ] Init project Next.js App Router baru (atau migrasi in-place)
-- [ ] Pasang Tailwind CSS 4 di Next.js
-- [ ] Pasang Framer Motion
-- [ ] Migrasikan semua komponen dari `src/components/` ke struktur Next.js
-- [ ] Routing: `/`, `/catalog`, `/admin`, `/admin/login`
-- [ ] Hapus Vite-specific config (`vite.config.js`, `vercel.json` rewrites)
+### Phase 2 — Migrasi ke Next.js ✅
+- [x] Migrasi in-place: ganti Vite → Next.js 15
+- [x] Pasang Tailwind CSS 4 via `@tailwindcss/postcss`
+- [x] Framer Motion tetap terpasang
+- [x] Semua komponen dipindah ke `components/` + tambah `"use client"`
+- [x] Routing: `app/page.jsx`, `app/catalog/`, `app/admin/`, `app/admin/login/`
+- [x] Hapus Vite-specific config (`vite.config.js`, `src/`, `index.html`, `vercel.json`)
+- [x] Dev server berjalan di `http://localhost:3000`
 
 ### Phase 3 — Setup Supabase
 - [ ] Buat project di Supabase
@@ -68,4 +69,4 @@ Tracking status pengerjaan berdasarkan [srs.md](srs.md).
 
 ## Catatan
 
-_Catat keputusan teknis, kendala, atau perubahan scope di sini saat pengerjaan berlangsung._
+- `next.config.js` dibuat sebagai `next.config.mjs` (bukan `.js`) karena Next.js meload config via Node CJS, sementara project menggunakan ESM syntax. `.mjs` memaksa file diperlakukan sebagai ES module.

@@ -11,11 +11,11 @@ Personal portfolio + catalog platform milik **Septiyan E.P.** (Fullstack Develop
 
 | Aspek | Saat Ini (Codebase) | Target (SRS) |
 |-------|---------------------|--------------|
-| Framework | React 19 + Vite 7 | Next.js App Router |
+| Framework | ✅ Next.js 15 App Router | — |
 | Konten | Hardcoded di `.jsx` | Supabase (PostgreSQL) |
-| Halaman | `/` saja | `/`, `/catalog`, `/admin`, `/admin/login` |
-| Admin | Tidak ada | Halaman `/admin` + Supabase Auth |
-| Rendering | CSR | SSG/SSR via Next.js |
+| Halaman | `/`, `/catalog` (placeholder), `/admin` (placeholder) | Semua halaman aktif |
+| Admin | Placeholder, belum ada auth | Halaman `/admin` + Supabase Auth |
+| Rendering | `"use client"` (CSR) | SSG/SSR via Next.js |
 
 ## Dokumentasi Lengkap
 
@@ -34,15 +34,22 @@ Personal portfolio + catalog platform milik **Septiyan E.P.** (Fullstack Develop
 ## Quick Reference — Kondisi Saat Ini
 
 ```
-src/pages/Dashboard.jsx          ← satu-satunya halaman, state modal ada di sini
-src/components/Projects.jsx      ← data proyek hardcoded di sini
-src/components/TechStack.jsx     ← data skill hardcoded di sini
-src/components/Hero.jsx          ← bio, social links
-src/components/ProfessionalProfile.jsx  ← about me (3 kartu)
-src/components/ProjectModal.jsx  ← modal detail proyek
-src/components/Sidebar.jsx       ← navigasi fixed desktop
-src/components/Background.jsx    ← blob gradient dekoratif
-src/components/Footer.jsx        ← footer
+app/page.jsx                     ← halaman /, state modal ada di sini
+app/catalog/page.jsx             ← placeholder /catalog
+app/admin/page.jsx               ← placeholder /admin
+app/admin/login/page.jsx         ← placeholder /admin/login
+app/layout.jsx                   ← root layout (metadata, globals.css)
+app/globals.css                  ← @import "tailwindcss"
+components/Projects.jsx          ← data proyek hardcoded di sini
+components/TechStack.jsx         ← data skill hardcoded di sini
+components/Hero.jsx              ← bio, social links
+components/ProfessionalProfile.jsx  ← about me (3 kartu)
+components/ProjectModal.jsx      ← modal detail proyek
+components/Sidebar.jsx           ← navigasi fixed desktop
+components/Background.jsx        ← blob gradient dekoratif
+components/Footer.jsx            ← footer
+next.config.mjs                  ← Next.js config (pakai .mjs bukan .js)
+postcss.config.mjs               ← Tailwind CSS 4 via postcss
 ```
 
 ## Aturan Penting (Saat Ini)
