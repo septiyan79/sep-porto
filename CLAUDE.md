@@ -12,7 +12,7 @@ Personal portfolio + catalog platform milik **Septiyan E.P.** (Fullstack Develop
 | Supabase | ✅ Live | Schema, seed, client sudah jalan |
 | Halaman `/` | ✅ Dinamis | Fetch dari Supabase, tidak ada hardcode |
 | Halaman `/catalog` | ✅ Live | Fetch catalog_themes + filter category |
-| Admin & Auth | ⏳ Belum | Phase 6 — next task |
+| Admin & Auth | ✅ Selesai | Login, middleware, CRUD dashboard lengkap |
 
 ## Dokumentasi Lengkap
 
@@ -48,6 +48,15 @@ components/ProjectModal.jsx      ← modal detail proyek
 components/Sidebar.jsx           ← navigasi fixed; scroll links hanya di /
 components/Background.jsx        ← blob gradient dekoratif (Server Component)
 components/Footer.jsx            ← footer
+components/admin/LoginForm.jsx       ← form login Supabase Auth
+components/admin/AdminDashboard.jsx  ← shell dashboard + tab nav + logout
+components/admin/AdminModal.jsx      ← modal popup reusable untuk semua form
+components/admin/CatalogManager.jsx  ← CRUD catalog_themes + upload Storage
+components/admin/ProjectsManager.jsx ← CRUD projects
+components/admin/SkillsManager.jsx   ← CRUD skills per category
+components/admin/ProfileManager.jsx  ← edit profile_content key-value
+components/admin/SocialLinksManager.jsx ← CRUD social_links
+middleware.js                    ← proteksi route /admin/*, redirect ke /admin/login
 lib/supabase/client.js           ← browser client (createBrowserClient)
 lib/supabase/server.js           ← server client (createServerClient + cookies)
 supabase/schema.sql              ← DDL 5 tabel + RLS (sudah dijalankan)
@@ -66,7 +75,7 @@ postcss.config.mjs               ← Tailwind CSS 4 via postcss
 - **`react-icon` v1.0.0 jangan dipakai** — gunakan `react-icons` (plural)
 - **Data fetch di Server Component** — `app/page.jsx` dan `app/catalog/page.jsx` fetch data, lalu pass sebagai props ke Client Component
 - **catalog_themes.category** — varchar bebas (misal: "Toko Sepatu", "Wedding Organizer", "Online Shop"). Filter muncul otomatis dari data yang ada
-- **Next task: Phase 6** — `/admin/login` + middleware + CRUD dashboard
+- **Semua phase selesai** — project siap deploy ke Vercel (tambahkan env vars di Vercel Dashboard terlebih dahulu)
 
 ## Env Vars
 
