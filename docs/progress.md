@@ -49,7 +49,7 @@ Tracking status pengerjaan berdasarkan [srs.md](srs.md).
 - [x] Jalankan `supabase/schema.sql` + `supabase/seed.sql`
 - [x] Buat bucket Storage `catalog-previews` (Public) + storage RLS policies
 - [x] Buat user admin di Authentication
-- [ ] Tambahkan env vars ke Vercel Dashboard — lakukan sebelum deploy produksi
+- [x] Tambahkan env vars ke Vercel Dashboard
 
 ### Phase 4 — Halaman `/` (Portfolio Dinamis) ✅
 - [x] `app/page.jsx` diubah menjadi Server Component
