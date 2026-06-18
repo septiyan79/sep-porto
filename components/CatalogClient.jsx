@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { FaWhatsapp } from 'react-icons/fa';
 import CatalogCard from './CatalogCard';
 
 const containerVariants = {
@@ -14,6 +15,24 @@ const itemVariants = {
   visible: { y: 0, opacity: 1 },
 };
 
+const INCLUDED = [
+  'Konten diganti sesuai bisnis klien',
+  'Integrasi tombol WhatsApp',
+  'Responsive mobile',
+  'Free hosting 1 tahun',
+  'Selesai 3–5 hari kerja',
+  '2x revisi',
+  'Free domain 1 tahun',
+  'Bisa custom design lain sesuai imajinasi',
+];
+
+const ORDER_STEPS = [
+  { num: '01', label: 'Pilih Tema', desc: 'Browse katalog, pilih yang cocok untuk bisnis kamu' },
+  { num: '02', label: 'Chat WhatsApp', desc: 'Hubungi langsung, diskusi kebutuhan kamu' },
+  { num: '03', label: 'Kirim Konten', desc: 'Kirim foto, teks, dan info bisnis kamu' },
+  { num: '04', label: 'Website Live', desc: 'Selesai dan online dalam 3–5 hari kerja' },
+];
+
 export default function CatalogClient({ themes, waLink }) {
   const [activeCategory, setActiveCategory] = useState('Semua');
 
@@ -21,6 +40,11 @@ export default function CatalogClient({ themes, waLink }) {
     const cats = themes.map(t => t.category).filter(Boolean);
     return ['Semua', ...Array.from(new Set(cats))];
   }, [themes]);
+
+  const rawNum = waLink !== '#' ? waLink.replace(/^https?:\/\/wa\.me\//, '') : '';
+  const waPhone = rawNum
+    ? `+${rawNum.slice(0, 2)} ${rawNum.slice(2, 5)}-${rawNum.slice(5, 9)}-${rawNum.slice(9)}`
+    : null;
 
   const filtered = activeCategory === 'Semua'
     ? themes
@@ -50,6 +74,7 @@ export default function CatalogClient({ themes, waLink }) {
           </p>
         </motion.div>
 
+        <div id="themes-section" />
         {/* Category Filter */}
         {categories.length > 1 && (
           <motion.div variants={itemVariants} className="flex flex-wrap gap-2 mb-8">
@@ -102,6 +127,117 @@ export default function CatalogClient({ themes, waLink }) {
                 itemVariants={itemVariants}
               />
             ))}
+          </motion.div>
+        )}
+
+        {/* Cara Order */}
+        <motion.div id="cara-order" variants={itemVariants} className="mt-20">
+          <p className="text-xs font-mono text-emerald-500 tracking-widest uppercase mb-3">Cara Order</p>
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-2">Semudah 4 Langkah</h2>
+          <p className="text-gray-400 text-sm mb-8">
+            Pilih tema → Chat WhatsApp → Kirim konten → Selesai dalam 3–5 hari kerja
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {ORDER_STEPS.map((step) => (
+              <div key={step.num} className="flex flex-col gap-3 p-5 rounded-3xl border border-white/10 bg-white/5">
+                <span className="text-xs font-mono text-emerald-500">{step.num}</span>
+                <p className="font-bold text-sm">{step.label}</p>
+                <p className="text-xs text-gray-500 leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Harga & Included */}
+        <motion.div variants={itemVariants} className="mt-12">
+          <div className="rounded-4xl border border-white/10 bg-white/5 p-8 md:p-10">
+            <div className="flex flex-col md:flex-row md:items-start gap-8">
+              <div className="flex-1">
+                <p className="text-xs font-mono text-emerald-500 tracking-widest uppercase mb-3">Harga</p>
+                <div className="flex items-baseline gap-2 mb-6">
+                  <span className="text-4xl font-bold">Rp1,5jt</span>
+                  <span className="text-gray-500 text-sm">/ tema</span>
+                </div>
+                <p className="text-xs font-mono text-emerald-500 tracking-widest uppercase mb-3">Sudah Termasuk</p>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {INCLUDED.map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-sm text-gray-300">
+                      <span className="w-4 h-4 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
+                        <span className="text-emerald-400 text-[9px]">✓</span>
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="md:w-64 p-5 rounded-3xl border border-yellow-500/20 bg-yellow-500/5 flex flex-col gap-2">
+                <p className="text-xs font-mono text-yellow-400 tracking-widest uppercase">Info Revisi</p>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  Revisi atau update konten setelah website selesai dikenakan biaya tambahan.
+                </p>
+                <p className="text-lg font-bold text-yellow-400">
+                  Rp100.000<span className="text-sm font-normal text-gray-400"> / sesi</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Developer */}
+        <motion.div variants={itemVariants} className="mt-12">
+          <div className="rounded-4xl border border-white/10 bg-white/5 p-8 md:p-10 flex flex-col md:flex-row items-center gap-8">
+            <div className="relative shrink-0">
+              <img
+                src="/saya.png"
+                alt="Septiyan E.P."
+                className="w-40 h-48 md:w-48 md:h-56 object-cover object-top"
+                style={{
+                  maskImage: 'radial-gradient(ellipse 75% 80% at 50% 42%, black 12%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.12) 62%, transparent 76%)',
+                  WebkitMaskImage: 'radial-gradient(ellipse 75% 80% at 50% 42%, black 12%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.12) 62%, transparent 76%)',
+                }}
+              />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(ellipse 65% 65% at 50% 45%, rgba(16,185,129,0.09) 0%, transparent 70%)',
+                }}
+              />
+            </div>
+            <div>
+              <p className="text-xs font-mono text-emerald-500 tracking-widest uppercase mb-2">Developer</p>
+              <h3 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">Halo, saya Septiyan!</h3>
+              <p className="text-gray-400 leading-relaxed max-w-md">
+                Developer dengan 5+ tahun pengalaman, siap bantu bisnis kamu tampil profesional di dunia online.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* WhatsApp CTA */}
+        {waPhone && (
+          <motion.div variants={itemVariants} className="mt-12 mb-8">
+            <div className="rounded-4xl border border-emerald-500/20 bg-emerald-500/5 p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div>
+                <p className="text-xs font-mono text-emerald-500 tracking-widest uppercase mb-2">Hubungi Langsung</p>
+                <a
+                  href={waLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-2xl md:text-3xl font-bold text-white hover:text-emerald-400 transition-colors"
+                >
+                  {waPhone}
+                </a>
+              </div>
+              <a
+                href={waLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 flex items-center gap-2 px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm transition-all"
+              >
+                <FaWhatsapp size={16} />
+                Chat WhatsApp
+              </a>
+            </div>
           </motion.div>
         )}
       </motion.main>

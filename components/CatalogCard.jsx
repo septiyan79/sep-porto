@@ -16,6 +16,10 @@ export default function CatalogCard({ theme, waLink, itemVariants }) {
     >
       {/* Preview Image */}
       <div className="relative w-full aspect-video bg-white/5 overflow-hidden rounded-t-4xl">
+        {/* Price Badge */}
+        <div className="absolute top-3 right-3 z-10 px-3 py-1.5 rounded-full bg-black/60 border border-emerald-500/50 backdrop-blur-sm">
+          <span className="text-emerald-400 font-mono font-bold text-xs">Rp1,5jt</span>
+        </div>
         {theme.preview_image_url ? (
           <img
             src={theme.preview_image_url}
