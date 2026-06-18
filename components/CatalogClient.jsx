@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { FaWhatsapp } from 'react-icons/fa';
+import { RiSmartphoneFill, RiShieldCheckFill } from 'react-icons/ri';
 import CatalogCard from './CatalogCard';
 
 const containerVariants = {
@@ -19,11 +20,11 @@ const INCLUDED = [
   'Konten diganti sesuai bisnis anda',
   'Bisa custom design lain sesuai imajinasi',
   'Integrasi tombol WhatsApp',
-  'Free hosting selama 1 tahun',
+  'Free hosting',
   'Selesai 3–5 hari kerja',
   'Free 2x revisi',
   'Responsive mobile',
-  'Free domain selama 1 tahun',
+  'Free domain .com / .co.id selama 1 tahun',
 ];
 
 const ORDER_STEPS = [
@@ -31,6 +32,20 @@ const ORDER_STEPS = [
   { num: '02', label: 'Chat WhatsApp', desc: 'Hubungi langsung, diskusi kebutuhan kamu' },
   { num: '03', label: 'Kirim Konten', desc: 'Kirim foto, teks, dan info bisnis kamu' },
   { num: '04', label: 'Website Live', desc: 'Selesai dan online dalam 3–5 hari kerja' },
+];
+
+const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+
+const METRICS = [
+  { value: '12', label: 'Tema tersedia' },
+  { value: '1 jutaan', label: 'Harga mulai dari' },
+  { value: '3–5 hari', label: 'Selesai & online' },
+];
+
+const TRUST = [
+  { icon: <RiSmartphoneFill size={13} />, label: 'Mobile-friendly' },
+  { icon: <FaWhatsapp size={13} />, label: 'Konsultasi gratis' },
+  { icon: <RiShieldCheckFill size={13} />, label: 'Free domain & hosting 1 tahun' },
 ];
 
 export default function CatalogClient({ themes, waLink }) {
@@ -59,29 +74,54 @@ export default function CatalogClient({ themes, waLink }) {
         className="max-w-6xl mx-auto"
       >
         {/* Header */}
-        <motion.div variants={itemVariants} className="mb-10">
-          <p className="text-xs font-mono text-emerald-500 tracking-widest uppercase mb-3">
+        <motion.div variants={itemVariants} className="mb-12">
+          <p className="text-xs font-mono text-emerald-500 tracking-widest uppercase mb-4">
             Web Theme Catalog
           </p>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">
-            Tema Web untuk{' '}
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tighter mb-4 max-w-3xl leading-tight">
+            Website profesional untuk bisnis kamu —{' '}
             <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-emerald-400 to-cyan-400">
-              UMKM
+              jadi dalam 3–5 hari
             </span>
           </h1>
-          <div className="max-w-2xl flex flex-col gap-3">
-            <p className="text-lg md:text-xl font-semibold text-white leading-snug">
-              Punya bisnis tapi belum punya website?
-            </p>
-            <p className="text-gray-400 leading-relaxed">
-              Pilih tema di bawah, kami ubah jadi website bisnis kamu dalam 3–5 hari.
-            </p>
-            <p className="inline-flex items-center gap-2 text-sm font-mono">
-              <span className="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-bold">
-                Mulai Rp1,5jt
+          <p className="text-gray-400 leading-relaxed max-w-xl mb-8">
+            Pilih dari 12 tema siap pakai untuk toko online, wedding organizer, atau personal brand. Sudah termasuk domain &amp; hosting 1 tahun.
+          </p>
+
+          {/* Metric Cards */}
+          <div className="grid grid-cols-3 gap-3 max-w-xs sm:max-w-sm mb-8">
+            {METRICS.map((m) => (
+              <div key={m.label} className="flex flex-col gap-1 px-3 py-2.5 rounded-2xl border border-white/10 bg-white/5">
+                <span className="text-base sm:text-lg font-bold text-white leading-none">{m.value}</span>
+                <span className="text-[10px] text-gray-500 leading-snug">{m.label}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-wrap gap-3 mb-7">
+            <button
+              onClick={() => scrollTo('themes-section')}
+              className="px-5 py-2.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm transition-all"
+            >
+              Lihat semua tema
+            </button>
+            <button
+              onClick={() => scrollTo('cara-order')}
+              className="px-5 py-2.5 rounded-full border border-white/20 hover:border-white/40 text-gray-300 hover:text-white text-sm transition-all"
+            >
+              Cara order
+            </button>
+          </div>
+
+          {/* Trust Signals */}
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
+            {TRUST.map((t) => (
+              <span key={t.label} className="flex items-center gap-1.5 text-xs text-gray-500">
+                <span className="text-emerald-500/70">{t.icon}</span>
+                {t.label}
               </span>
-              <span className="text-gray-500">sudah termasuk domain &amp; hosting</span>
-            </p>
+            ))}
           </div>
         </motion.div>
 
@@ -166,7 +206,7 @@ export default function CatalogClient({ themes, waLink }) {
               <div className="flex-1">
                 <p className="text-xs font-mono text-emerald-500 tracking-widest uppercase mb-3">Harga</p>
                 <div className="flex items-baseline gap-2 mb-6">
-                  <span className="text-4xl font-bold">Rp1,5jt</span>
+                  <span className="text-4xl font-bold">1 jutaan</span>
                   <span className="text-gray-500 text-sm">/ tema</span>
                 </div>
                 <p className="text-xs font-mono text-emerald-500 tracking-widest uppercase mb-3">Sudah Termasuk</p>

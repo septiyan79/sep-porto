@@ -1,9 +1,10 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { RiEmojiStickerFill, RiShiningFill, RiRobot3Fill, RiLayoutMasonryFill, RiFileListFill } from "react-icons/ri";
+import { RiEmojiStickerFill, RiShiningFill, RiRobot3Fill, RiLayoutMasonryFill, RiFileListFill, RiHomeFill } from "react-icons/ri";
 
 const scrollTo = (id) => {
+  if (id === '__top') return window.scrollTo({ top: 0, behavior: 'smooth' });
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 };
 
@@ -14,6 +15,7 @@ const scrollLinks = [
 ];
 
 const catalogLinks = [
+  { icon: <RiHomeFill size={25} />, target: '__top', label: 'Ke Atas' },
   { icon: <RiLayoutMasonryFill size={25} />, target: 'themes-section', label: 'Tema Web' },
   { icon: <RiFileListFill size={25} />, target: 'cara-order', label: 'Cara Order' },
 ];
