@@ -16,14 +16,14 @@ const itemVariants = {
 };
 
 const INCLUDED = [
-  'Konten diganti sesuai bisnis klien',
-  'Integrasi tombol WhatsApp',
-  'Responsive mobile',
-  'Free hosting 1 tahun',
-  'Selesai 3–5 hari kerja',
-  '2x revisi',
-  'Free domain 1 tahun',
+  'Konten diganti sesuai bisnis anda',
   'Bisa custom design lain sesuai imajinasi',
+  'Integrasi tombol WhatsApp',
+  'Free hosting selama 1 tahun',
+  'Selesai 3–5 hari kerja',
+  'Free 2x revisi',
+  'Responsive mobile',
+  'Free domain selama 1 tahun',
 ];
 
 const ORDER_STEPS = [
@@ -63,15 +63,26 @@ export default function CatalogClient({ themes, waLink }) {
           <p className="text-xs font-mono text-emerald-500 tracking-widest uppercase mb-3">
             Web Theme Catalog
           </p>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">
             Tema Web untuk{' '}
             <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-emerald-400 to-cyan-400">
               UMKM
             </span>
           </h1>
-          <p className="text-gray-400 max-w-xl leading-relaxed">
-            Koleksi tema company profile siap pakai. Pilih tema, lihat demo, dan hubungi langsung via WhatsApp untuk pemesanan.
-          </p>
+          <div className="max-w-2xl flex flex-col gap-3">
+            <p className="text-lg md:text-xl font-semibold text-white leading-snug">
+              Punya bisnis tapi belum punya website?
+            </p>
+            <p className="text-gray-400 leading-relaxed">
+              Pilih tema di bawah, kami ubah jadi website bisnis kamu dalam 3–5 hari.
+            </p>
+            <p className="inline-flex items-center gap-2 text-sm font-mono">
+              <span className="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-bold">
+                Mulai Rp1,5jt
+              </span>
+              <span className="text-gray-500">sudah termasuk domain &amp; hosting</span>
+            </p>
+          </div>
         </motion.div>
 
         <div id="themes-section" />
