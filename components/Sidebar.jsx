@@ -28,23 +28,42 @@ export default function Sidebar() {
   const activeLinks = isHome ? scrollLinks : isCatalog ? catalogLinks : [];
 
   return (
-    <div className="hidden lg:block fixed left-10 bottom-0 w-10 z-50">
-      <div className="flex flex-col space-y-8 items-center after:content-[''] after:w-px after:h-80 after:bg-emerald-900 after:mt-4">
-        {activeLinks.map(({ icon, target, label }) => (
-          <span
-            key={target}
-            onClick={() => scrollTo(target)}
-            className="relative group text-gray-500 hover:text-emerald-500 cursor-pointer transition-all"
-          >
-            {icon}
-            <span className="absolute left-8 top-1/2 -translate-y-1/2 px-2 py-1 bg-black/80 border border-white/10 text-emerald-400 text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-mono pointer-events-none">
-              {label}
+    <>
+      {/* Desktop sidebar */}
+      <div className="hidden lg:block fixed left-10 bottom-0 w-10 z-50">
+        <div className="flex flex-col space-y-8 items-center after:content-[''] after:w-px after:h-80 after:bg-emerald-900 after:mt-4">
+          {activeLinks.map(({ icon, target, label }) => (
+            <span
+              key={target}
+              onClick={() => scrollTo(target)}
+              className="relative group text-gray-500 hover:text-emerald-500 cursor-pointer transition-all"
+            >
+              {icon}
+              <span className="absolute left-8 top-1/2 -translate-y-1/2 px-2 py-1 bg-black/80 border border-white/10 text-emerald-400 text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-mono pointer-events-none">
+                {label}
+              </span>
             </span>
-          </span>
-        ))}
-
-
+          ))}
+        </div>
       </div>
-    </div>
+
+      {/* Mobile bottom nav */}
+      {activeLinks.length > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-white/10">
+          <div className="flex items-center justify-around px-6 py-3">
+            {activeLinks.map(({ icon, target, label }) => (
+              <button
+                key={target}
+                onClick={() => scrollTo(target)}
+                className="flex flex-col items-center gap-1.5 text-gray-500 hover:text-emerald-500 active:text-emerald-400 transition-all min-w-[56px]"
+              >
+                {icon}
+                <span className="text-[10px] font-mono leading-none">{label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
